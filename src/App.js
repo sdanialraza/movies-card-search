@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import MovieCard from "./MovieCard";
 import SearchIcon from "./search.svg";
+import { API_URL } from "./constants";
 import "./App.css";
-
-const apiKey = ""; // Your OMDB API Key goes here
-
-const apiURL = `http://www.omdbapi.com/?i=tt3896198&apikey=${apiKey}`;
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,13 +14,13 @@ const App = () => {
   }, []);
 
   const searchMovies = async (title) => {
-    const response = await fetch(`${apiURL}&s=${title}`);
+    const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
 
     setMovies(data.Search);
   };
 
-  if (apiKey === "")
+  if (!API_URL)
     return (
       <div className="error">
         <h1>Missing API Key</h1>
